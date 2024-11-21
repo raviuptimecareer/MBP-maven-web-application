@@ -1,0 +1,63 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven-3.9.6'
+         }
+         //CheckoutCode
+         stages{
+             stage('Checkoutcode'){
+                 steps{
+git branch: 'development', changelog: false, credentialsId: '30fa64e3-9387-493b-81c6-55022a195554', poll: false,
+ url: 'https://github.com/raviuptimecareer/MBP-maven-web-application.git'
+        }
+                 
+        }
+//Build
+
+stage('Build the Code'){
+                 steps{
+                sh "mvn clean package"
+        }
+                 
+        }
+        //Execute sonarqube Report
+        stage('Generate Sonareqube Report'){
+            steps{
+                sh "mvn clean sonar:sonar"
+            }
+        }//Upload Artifact into nexus
+        stage('Upload Artifact into Nexus'){
+            steps{
+                sh "mvn clean deploy"
+                
+            }
+        }
+        //Deploy App Into App Server
+        stage('Deploy App Into App Server'){
+            steps{
+     sshagent(['42b59a53-2b45-4a7b-9c55-e1342fad6653']) {
+  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.234.232.112:/opt/tomcat9/webapps"
+            }
+        }
+        }
+		}//stages closing
+//Email Notification
+post{
+success{
+mail bcc: '', body: '''Hi team...
+the entire code qa and testing done.
+code is ready to move deploy
+regards
+ravikala raveendra''', cc: '', from: '', replyTo: '', subject: 'build is success', to: 'ganeshsunchu1990@gmail.com'
+     }
+failure{
+mail bcc: '', body: '''Hi team...
+the entire code qa and testing done.
+code is ready to move deploy
+regards
+ravikala raveendra''', cc: '', from: '', replyTo: '', subject: 'build is failure', to: 'ganeshsunchu1990@gmail.com'
+     }
+}
+
+}//pipeline closing
+
