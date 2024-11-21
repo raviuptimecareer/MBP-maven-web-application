@@ -7,7 +7,7 @@ pipeline{
          stages{
              stage('Checkoutcode'){
                  steps{
-git branch: 'development', changelog: false, credentialsId: '30fa64e3-9387-493b-81c6-55022a195554', poll: false,
+git branch: 'dr', changelog: false, credentialsId: '30fa64e3-9387-493b-81c6-55022a195554', poll: false,
  url: 'https://github.com/raviuptimecareer/MBP-maven-web-application.git'
         }
                  
