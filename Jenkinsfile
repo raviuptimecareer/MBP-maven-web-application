@@ -1,10 +1,10 @@
 node{
 def mavenHome = tool name: 'maven-3.9.6'
-stage('CheckoutSourceCode'){
+stage('CheckoutCode'){
   git branch: 'development', changelog: false, credentialsId: '30fa64e3-9387-493b-81c6-55022a195554', poll: false,
  url: 'https://github.com/raviuptimecareer/MBP-maven-web-application.git'
 }
-stage('Build Artifact'){
+stage('Build Maven Artifact'){
 sh "${mavenHome}/bin/mvn clean package"
 }
   /*
