@@ -5,7 +5,7 @@ stage('CheckoutSourceCode'){
  url: 'https://github.com/raviuptimecareer/MBP-maven-web-application.git'
 }
 stage('Build Artifact'){
-sh "${maven-3.9.6}/bin/mvn clean package"
+sh "${mavenHome}/bin/mvn clean package"
 }
   /*
 stage('Report SonarQube'){
