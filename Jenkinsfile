@@ -7,7 +7,6 @@ stage('CheckoutSourceCode'){
 stage('Build Artifact'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-  /*
 stage('Report SonarQube'){
 sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
@@ -25,5 +24,4 @@ Thank you....
 Regards
 Ravikala Raveendra''', cc: '', from: '', replyTo: '', subject: 'Build is over', to: 'ganeshsunchu1990@gmail.com'
 }
-*/
 }
