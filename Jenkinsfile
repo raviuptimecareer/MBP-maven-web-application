@@ -18,20 +18,6 @@ stage('CheckoutCode'){
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.110.179.107:/opt/tomcat9/webapps"
 }
 }
-/*stage('Build Maven Artifact'){
-sh "${mavenHome}/bin/mvn clean package"
-}
-stage('Report SonarQube'){
-sh "${mavenHome}/bin/mvn clean sonar:sonar"
-}
-stage('UploadArtifact Into Nexus'){
-sh "${mavenHome}/bin/mvn clean deploy"
-}
-stage('Deploy App Into Tomcat'){
-sshagent(['42b59a53-2b45-4a7b-9c55-e1342fad6653']) {
-  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.110.179.107:/opt/tomcat9/webapps"
-}
-}*/
 stage('Email Notification'){
 mail bcc: '', body: '''Hi, Welcome touptime career...!
 Thank you....
